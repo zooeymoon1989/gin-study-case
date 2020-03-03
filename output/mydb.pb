@@ -1,6 +1,2 @@
 
-	something
-	something
-foo
-bar
-baz
+unknown
