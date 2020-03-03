@@ -1,1 +1,22 @@
-package gin_study_case
+package main
+
+import (
+	"gin-study-case/handlers/proto_buffers"
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200 , gin.H{
+			"message":"pong",
+		})
+	})
+
+	r.POST("/todo/add",proto_buffers.Add)
+
+
+
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
