@@ -8,4 +8,19 @@ message Task {
 }
 
 
+message TaskList {
+    repeated Task tasks = 1;
+}
+
+message Void {
+
+}
+
+service Tasks {
+    rpc List (Void) returns (TaskList) {
+    }
+    rpc Add (string) returns (Void) {
+    }
+}
+
 
