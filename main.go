@@ -16,6 +16,7 @@ func main() {
 	})
 
 	r.POST("/todo/add",proto_buffers.Add)
+	r.POST("/todo/list",proto_buffers.List)
 
 
 
