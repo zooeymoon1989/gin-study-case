@@ -31,13 +31,7 @@ func main() {
 	if err != nil{
 		fmt.Errorf("can not connect to mysql , err : %s" , err.Error())
 	}
-	//svr := grpc.NewServer()
-	////todo.RegisterTasksServer(svr , tasks)
-	//l , err := net.Listen("tcp","14444")
-	//if err != nil {
-	//	log.Fatalf("Can't listen tcp server with port is 14444 , err is :%v" , err.Error())
-	//}
-	//svr.Serve(l)
+
 	r := gin.Default()
 	r.POST("/todo/add",proto_buffers.Add)
 	r.POST("/todo/list",proto_buffers.List)
