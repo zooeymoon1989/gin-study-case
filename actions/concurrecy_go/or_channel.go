@@ -1,9 +1,31 @@
 package concurrecy_go
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"time"
+)
 
 func OrChannel(c *gin.Context) {
 
+	sig := func(after time.Duration) <-chan interface{} {
+		c := make(chan interface{})
+		go func() {
+			defer close(c)
+			time.Sleep(after)
+		}()
+		return c
+	}
+
+	start := time.Now()
+	<-or(
+		sig(2*time.Hour),
+		sig(5*time.Minute),
+		sig(1*time.Second),
+		sig(1*time.Hour),
+		sig(1*time.Minute),
+	)
+	c.JSON(200 , fmt.Sprintf("done after %v",time.Since(start)))
 }
 
 func or(channels ...<-chan interface{}) <-chan interface{} {
