@@ -37,6 +37,7 @@ func main() {
 	r.POST("/todo/list", proto_buffers.List)
 	r.POST("/cg/or_channel", concurrecy_go.OrChannel)
 	r.POST("/error/error_handle",concurrecy_go.ErrorHandle)
+	r.POST("/cg/pipeline",concurrecy_go.Pipeline)
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
