@@ -26,11 +26,11 @@ func Pipeline(c *gin.Context) {
 		return intStream
 	}
 
-	multiply := func(done <-chan interface{} , intStream <-chan int , multiplier int) <-chan int{
+	multiply := func(done <-chan interface{}, intStream <-chan int, multiplier int) <-chan int {
 		multipliedStream := make(chan int)
 		go func() {
 			defer close(multipliedStream)
-			for i := range intStream{
+			for i := range intStream {
 				select {
 				case <-done:
 					return
@@ -41,11 +41,11 @@ func Pipeline(c *gin.Context) {
 		return multipliedStream
 	}
 
-	add := func(done chan interface{} , intStream <-chan int , additive int)<-chan int{
+	add := func(done chan interface{}, intStream <-chan int, additive int) <-chan int {
 		addStream := make(chan int)
 		go func() {
 			defer close(addStream)
-			for i := range intStream{
+			for i := range intStream {
 				select {
 				case <-done:
 					return
@@ -58,10 +58,10 @@ func Pipeline(c *gin.Context) {
 	start := time.Now()
 
 	done := make(chan interface{})
-	intStream := generator(done,1,2,3,4,5,6,7,8,9)
-	pipeline := multiply(done,add(done , multiply(done ,intStream,2),1),3)
+	intStream := generator(done, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+	pipeline := multiply(done, add(done, multiply(done, intStream, 2), 1), 3)
 	for i := range pipeline {
 		fmt.Println(i)
 	}
-	c.JSON(200 , time.Since(start).Seconds())
+	c.JSON(200, time.Since(start).Seconds())
 }
