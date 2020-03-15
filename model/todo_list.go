@@ -7,7 +7,7 @@ type TodoList struct {
 }
 
 func (l TodoList) GetAll() ([]TodoList, error) {
-
+	panic("Implement me!")
 }
 
 func (TodoList)TableName() string {
