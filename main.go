@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"gin-study-case/routes"
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
+	"io"
 	"log"
 	"os"
 )
@@ -15,6 +17,12 @@ func init() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	//默认不输出彩色日志
+	gin.DisableConsoleColor()
+	f,_ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f)
+
+
 }
 
 
